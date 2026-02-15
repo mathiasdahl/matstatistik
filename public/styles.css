@@ -163,6 +163,18 @@ td:last-child {
   background: #d9ebff;
 }
 
+.category-chicken {
+  background: #ffeacc;
+}
+
+.category-soup {
+  background: #fff4c7;
+}
+
+.category-other {
+  background: #eceff4;
+}
+
 @media (max-width: 840px) {
   .meal-form {
     grid-template-columns: 1fr 1fr;

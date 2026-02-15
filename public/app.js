@@ -3,6 +3,13 @@ const statusNode = document.getElementById("status");
 const addMealForm = document.getElementById("add-meal-form");
 const sortButtons = document.querySelectorAll(".sort-button");
 const API_BASE = "./api";
+const CATEGORY_META = {
+  meat: { label: "Meat", badgeClass: "category-meat" },
+  vegetarian: { label: "Vegetarian", badgeClass: "category-vegetarian" },
+  fish: { label: "Fish", badgeClass: "category-fish" },
+  chicken: { label: "Chicken", badgeClass: "category-chicken" },
+  soup: { label: "Soup", badgeClass: "category-soup" },
+};
 
 let sortBy = "lastCooked";
 let sortOrder = "asc";
@@ -37,9 +44,17 @@ function updateSortButtonState() {
 }
 
 function categoryLabel(category) {
-  if (category === "meat") return "Meat";
-  if (category === "vegetarian") return "Vegetarian";
-  return "Fish";
+  if (CATEGORY_META[category]) {
+    return CATEGORY_META[category].label;
+  }
+  return category.charAt(0).toUpperCase() + category.slice(1);
+}
+
+function categoryBadgeClass(category) {
+  if (CATEGORY_META[category]) {
+    return CATEGORY_META[category].badgeClass;
+  }
+  return "category-other";
 }
 
 function escapeHtml(value) {
@@ -89,7 +104,7 @@ function renderMeals(meals) {
         <tr>
           <td>${nameCell}</td>
           <td>
-            <span class="category-badge category-${meal.category}">
+            <span class="category-badge ${categoryBadgeClass(meal.category)}">
               ${categoryLabel(meal.category)}
             </span>
           </td>

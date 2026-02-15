@@ -16,18 +16,51 @@ const ALLOWED_SORT_FIELDS = {
   timesCooked: "times_cooked",
 };
 
-const ALLOWED_CATEGORIES = new Set(["meat", "vegetarian", "fish"]);
+const ALLOWED_CATEGORIES = new Set(["meat", "vegetarian", "fish", "chicken", "soup"]);
+
+function migrateLegacyCategoryConstraint() {
+  const table = db
+    .prepare("SELECT sql FROM sqlite_master WHERE type = 'table' AND name = 'meals'")
+    .get();
+
+  if (!table || !table.sql) {
+    return;
+  }
+
+  const hasLegacyConstraint = table.sql.includes("CHECK(category IN ('meat', 'vegetarian', 'fish'))");
+  if (!hasLegacyConstraint) {
+    return;
+  }
+
+  db.exec(`
+    BEGIN;
+      CREATE TABLE meals_new (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        category TEXT NOT NULL,
+        last_cooked TEXT NOT NULL,
+        times_cooked INTEGER NOT NULL DEFAULT 0
+      );
+      INSERT INTO meals_new (id, name, category, last_cooked, times_cooked)
+      SELECT id, name, category, last_cooked, times_cooked FROM meals;
+      DROP TABLE meals;
+      ALTER TABLE meals_new RENAME TO meals;
+    COMMIT;
+  `);
+}
 
 function initializeDatabase() {
   db.exec(`
     CREATE TABLE IF NOT EXISTS meals (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
-      category TEXT NOT NULL CHECK(category IN ('meat', 'vegetarian', 'fish')),
+      category TEXT NOT NULL,
       last_cooked TEXT NOT NULL,
       times_cooked INTEGER NOT NULL DEFAULT 0
     );
   `);
+
+  migrateLegacyCategoryConstraint();
 
   const mealCount = db.prepare("SELECT COUNT(*) as count FROM meals").get().count;
   if (mealCount > 0) {
@@ -96,7 +129,9 @@ app.post("/api/meals", (req, res) => {
   }
 
   if (!ALLOWED_CATEGORIES.has(category)) {
-    return res.status(400).json({ error: "Category must be meat, vegetarian, or fish." });
+    return res
+      .status(400)
+      .json({ error: "Category must be one of: meat, vegetarian, fish, chicken, soup." });
   }
 
   if (!/^\d{4}-\d{2}-\d{2}$/.test(lastCooked)) {
