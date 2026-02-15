@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meal Planning Statistics</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header class="page-header">
+        <div>
+          <h1>Weekly Meal Planning Statistics</h1>
+          <p>Track what you cook and quickly pick meals you have not had recently.</p>
+        </div>
+      </header>
+
+      <section class="card">
+        <h2>Add a meal</h2>
+        <form id="add-meal-form" class="meal-form">
+          <label>
+            Meal name
+            <input id="name" name="name" type="text" minlength="2" required />
+          </label>
+
+          <label>
+            Category
+            <select id="category" name="category" required>
+              <option value="meat">Meat</option>
+              <option value="vegetarian">Vegetarian</option>
+              <option value="fish">Fish</option>
+            </select>
+          </label>
+
+          <label>
+            Last cooked
+            <input id="lastCooked" name="lastCooked" type="date" required />
+          </label>
+
+          <label>
+            Times cooked
+            <input id="timesCooked" name="timesCooked" type="number" min="0" step="1" value="0" required />
+          </label>
+
+          <button type="submit">Add meal</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <div class="table-header">
+          <h2>Meals</h2>
+          <span id="status" class="status" role="status" aria-live="polite"></span>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th><button class="sort-button" data-sort="name">Meal</button></th>
+                <th><button class="sort-button" data-sort="category">Category</button></th>
+                <th><button class="sort-button" data-sort="lastCooked">Last cooked</button></th>
+                <th><button class="sort-button" data-sort="timesCooked">Times cooked</button></th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="meal-rows"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

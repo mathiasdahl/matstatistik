@@ -1,0 +1,18 @@
+{
+  "name": "matstatistik",
+  "version": "1.0.0",
+  "description": "Weekly meal planning statistics web app",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "better-sqlite3": "^12.6.2",
+    "express": "^5.2.1"
+  }
+}

@@ -1,0 +1,8 @@
+CREATE TABLE meals (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      category TEXT NOT NULL CHECK(category IN ('meat', 'vegetarian', 'fish', 'chicken', 'soup')),
+      last_cooked TEXT NOT NULL,
+      times_cooked INTEGER NOT NULL DEFAULT 0
+    );
+

@@ -1,0 +1,174 @@
+:root {
+  color-scheme: light;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.4;
+}
+
+body {
+  margin: 0;
+  background: #f2f4f8;
+  color: #1b1f24;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1rem 2rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.page-header h1 {
+  margin-bottom: 0.2rem;
+}
+
+.page-header p {
+  margin-top: 0;
+  color: #5f6b7a;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(26, 34, 51, 0.08);
+  padding: 1rem;
+}
+
+.meal-form {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(130px, 1fr)) auto;
+  gap: 0.8rem;
+  align-items: end;
+}
+
+.meal-form label {
+  display: grid;
+  gap: 0.3rem;
+  font-size: 0.9rem;
+}
+
+input,
+select,
+button {
+  font: inherit;
+}
+
+input,
+select {
+  border: 1px solid #c9d1dc;
+  border-radius: 6px;
+  padding: 0.45rem 0.55rem;
+}
+
+button {
+  border: 0;
+  border-radius: 6px;
+  padding: 0.5rem 0.8rem;
+  background: #0e63ce;
+  color: #fff;
+  cursor: pointer;
+}
+
+.secondary {
+  background: #eef2f8;
+  color: #1f385d;
+  border: 1px solid #c9d1dc;
+}
+
+.secondary:hover {
+  background: #dde6f3;
+}
+
+button:hover {
+  background: #0a52ab;
+}
+
+button:disabled {
+  background: #8ea0b8;
+  cursor: not-allowed;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.8rem;
+}
+
+.status {
+  font-size: 0.9rem;
+  color: #3a4758;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+}
+
+th,
+td {
+  text-align: left;
+  border-bottom: 1px solid #e4e9f0;
+  padding: 0.6rem 0.4rem;
+}
+
+th:last-child,
+td:last-child {
+  text-align: right;
+}
+
+.action-buttons {
+  display: inline-flex;
+  gap: 0.4rem;
+}
+
+.name-edit-input {
+  width: min(100%, 280px);
+}
+
+.sort-button {
+  all: unset;
+  cursor: pointer;
+  color: #173b7a;
+  font-weight: 600;
+}
+
+.sort-button.active {
+  color: #0e63ce;
+}
+
+.category-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  padding: 0.15rem 0.5rem;
+  color: #0f2548;
+}
+
+.category-meat {
+  background: #ffd9d9;
+}
+
+.category-vegetarian {
+  background: #d8f2d8;
+}
+
+.category-fish {
+  background: #d9ebff;
+}
+
+@media (max-width: 840px) {
+  .meal-form {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .meal-form button {
+    grid-column: span 2;
+  }
+}
